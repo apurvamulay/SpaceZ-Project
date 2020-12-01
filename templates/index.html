@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script>
+    $(document).ready(function() {
+            $.ajax({
+                url: "/get-all-payloads",
+                type: "GET",
+                beforeSend: function(xhr){xhr.setRequestHeader('accept', 'application/json');},
+                success: function(val) {
+                    console.log(typeof(val))
+                    let select = document.getElementById("particular-aircraft")
+                    Object.keys(val).forEach((name) => {
+                        let option = document.createElement("option");
+                        option.text = name;
+                        option.value = name;
+                        select.appendChild(option);
+                    })
+                    return select;
+            if (document.getElementById("particular-aircraft").value == 'empty')  {
+                document.getElementById("particular-aircraft").innerHTML = ""
+            }
+         }
+      });
+     });
+</script>
+<h2>SpaceZ industries </h2>
+
+<div class="row">
+
+  <div class="column">
+    <h2>Launch Vehicle</h2>
+      <label for="fname"> File name: </label>
+      <input type="text" id="fname" name="filename"/>
+
+    <h3>Upload Launch Vehicle Config file:</h3>
+       <form id="lv-form" action = "http://localhost:5344/launch-vehicle/create" method = "POST" target="hidden-iframe"
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" id="lv-upload" />
+         <input type = "submit"/>
+      </form>
+    <br/>
+
+    <button id="deploy-payload" type="button" onclick="get_deploy_payload()">Deploy Payload</button>
+    <button id="deorbit" type="button" onclick="get_deorbit()">Deorbit</button>
+    <button id="lv-start-telemetry" type="button" onclick="get_lv_start_telemetry()">Start Telemetry</button>
+    <button id="lv-stop-telemetry" type="button" onclick="get_lv_stop_telemetry()">Stop Telemetry</button>
+
+  </div>
+
+    <div class="column">
+    <h2>Payload</h2>
+      <h3>Upload Payload Config file:</h3>
+      <label for="p_name"> File name: </label>
+      <input type="text" id="p_name" name="filename1"/>
+          <br/>
+      <label for="type"> Type: </label>
+      <input type="text" id="type" name="Type"/>
+
+       <form action = "http://localhost:5344/payload/create" method = "POST" target="hidden-iframe"
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" id="payload-file-upload"/>
+         <input type = "submit"/>
+      </form>
+    <br/>
+
+    <button id="start-data" type="button" onclick="payload_start_data()">Start Data</button>
+    <button id="stop-data" type="button" onclick="payload_stop_data()">Stop data</button>
+    <button id="decommission" type="button" onclick="payload_decommission()">Decommission</button>
+    <button id="payload-start-telemetry" type="button" onclick="get_p_start_telemetry()">Start Telemetry</button>
+    <button id="payload-stop-telemetry" type="button" onclick="get_p_stop_telemetry()">Stop Telemetry</button>
+      <br/>
+  </div>
+
+  <div class="row">
+      <h2>DSN</h2>
+      <div class="left">
+        <form action="#" id="dsn">
+            <b><label for="show-dashboards">Show dashboards</label> <br/></b>
+            <select name="dashboards" id="show-dashboards" onchange="get_dashboard_metrics()">
+                <option value="empty"> </option>
+                <option id="current-active" value="active-spacecrafts">All current active spacecrafts</option>
+                <option id="waiting" value="spacecrafts-waiting">All spacecrafts waiting to be launched</option>
+            </select>
+            <br>
+
+            <p id="counts"></p>
+        </form>
+      </div>
+
+        <div class="center">
+            <form action="#">
+                <b><label for="particular-aircraft">Show particular aircraft</label> <br/></b>
+                <select name="dashboards" id="particular-aircraft">
+                    <option value="empty"> Select from list </option>
+                </select>
+                <br/>
+                <input type="button" value="View Details" onclick="get_payload_data()"/>
+                <p id="show-data"></p>
+            </form>
+        </div>
+
+        <div class="right">
+            <b><label>Launch new Spacecraft</label></b>
+            <br/>
+            <button type="button" onclick="get_launch_vehicle()">Launch</button>
+        </div>
+
+  </div>
+</div>
+
+
+</body>
+</html>

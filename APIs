@@ -1,0 +1,20 @@
+POST: http://localhost:5344/payload/create (To Upload Payload config file from UI)
+POST: http://localhost:5344/launch-vehicle/create (To Upload launch vehicle config file from UI)
+GET: http://localhost:5344/launch-vehicle/deploy?config-file=lv-config.json (To deploy Launch Vehicle)
+GET: http://localhost:5344/launch-vehicle/start-telemetry?name=launch_vehicle_1 (Start Telemetry of LV)
+GET: http://localhost:5344/launch-vehicle/stop-telemetry?name=launch_vehicle_1 (Stop Telemetry of LV)
+GET: http://localhost:5344/launch-vehicle/deorbit?name=launch_vehicle_1 (Deorbit LV)
+
+GET: http://localhost:5344/launch-vehicle/deploy-payload?name=launch_vehicle_1 (Deploy payload)
+GET: http://localhost:5344/payload/start-telemetry?name=payload_1 (Start Telemetry of payload)
+GET: http://localhost:5344/payload/stop-telemetry?name=payload_1 (Stop Telemetry of payload)
+GET: http://localhost:5344/payload/decommission?name=payload_1 (Decommission Payload)
+
+GET: http://localhost:5344/payload/start-data?name=payload_1 (Start Data of payload)
+GET: http://localhost:5344/payload/stop-data?name=payload_1 (Stop Data of payload)
+
+
+GET: http://localhost:5344/dashboard-metrics (Dashboard Metrics)
+
+GET: http://localhost:5344/get-all-payloads (Get all Payloads)
+GET: http://localhost:5344/payload/get-data?name=payload_1 (Get Payload data)

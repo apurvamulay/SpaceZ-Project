@@ -1,0 +1,7 @@
+{
+  "Name": "launch_vehicle_1",
+  "Orbit": 0,
+  "PayloadConfig": "payload-config.json",
+  "altitude": 400,
+  "timeToOrbit": 12
+}
